@@ -1,0 +1,19 @@
+{{- if .Values.openfinanceCallbackFinansysbank.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.openfinanceCallbackFinansysbank.name }}
+  name: {{ .Values.openfinanceCallbackFinansysbank.name | quote }}
+  namespace: {{ .Values.global.namespace | quote }}
+spec:
+  ports:
+    - name: api
+      protocol: TCP
+      port: {{ .Values.openfinanceCallbackFinansysbank.apiPort }}
+      targetPort: {{ .Values.openfinanceCallbackFinansysbank.apiPort }}
+
+  selector:
+    app: {{ .Values.openfinanceCallbackFinansysbank.name | quote }}
+
+{{- end }}

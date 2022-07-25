@@ -1,0 +1,12 @@
+apiVersion: v1
+appVersion: 0.0.1
+description: OpenFinance Callback Finansysbank
+keywords:
+- OpenFinance
+- Callback
+- Finansysbank
+maintainers:
+- email: infra@finansystech.com
+  name: finansystech
+name: openfinance-callback-finansysbank
+version: 0.0.1
