@@ -21,7 +21,7 @@ financeMarketplaceBackend:
     pullPolicy: Always
   env:
     - name: DATABASE_URI
-      value: "mongodb://root:mongodb@shared-mongodb-0.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-1.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-2.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017"
+      value: "mongodb://root:mongodb@shared-mongodb-0.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-1.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-2.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017/marketplace?authSource=admin&readPreference=nearest&w=majority&replicaSet=rs0"
     - name: PROXY_TARGET_PATH
       value: "https://payments.pabbly.com"
     - name: RUNTIME_BASE_PATH
@@ -62,7 +62,9 @@ financeMarketplaceFrontEnd:
     name: finansystech/finance-marketplace-frontend
     tag: 0.1.0
     pullPolicy: Always
-  env: {}
+  env:
+    - name: PROXY_URL
+      value: "http://finance-marketplace-backend.marketplace.svc.cluster.local:3000"
   replicaCount: 1
   apiPort: 8080
 

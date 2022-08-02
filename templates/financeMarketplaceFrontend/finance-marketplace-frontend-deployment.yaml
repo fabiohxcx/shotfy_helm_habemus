@@ -27,10 +27,9 @@ spec:
           {{- end }}
 
         command:
-          - /bin/sh
+          - yarn
         args:
-          - '-c'
-          - node .
+          - 'serve'
 
         ports:
         - containerPort: {{ .Values.financeMarketplaceFrontEnd.apiPort }}

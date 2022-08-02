@@ -27,10 +27,9 @@ spec:
           {{- end }}
 
         command:
-          - /bin/sh
+          - node
         args:
-          - '-c'
-          - node .
+          - 'server'
 
         ports:
         - containerPort: {{ .Values.financeMarketplaceBackend.apiPort }}
