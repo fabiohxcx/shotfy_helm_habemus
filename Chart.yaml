@@ -1,12 +1,11 @@
 apiVersion: v1
 appVersion: 0.0.1
-description: OpenFinance Callback Finansysbank
+description: Finance Marketplace
 keywords:
-- OpenFinance
-- Callback
-- Finansysbank
+- Finance
+- Marketplace
 maintainers:
 - email: infra@finansystech.com
   name: finansystech
-name: openfinance-callback-finansysbank
+name: finance-marketplace
 version: 0.0.1

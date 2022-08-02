@@ -1,0 +1,19 @@
+{{- if .Values.financeMarketplaceBackend.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.financeMarketplaceBackend.name }}
+  name: {{ .Values.financeMarketplaceBackend.name | quote }}
+  namespace: {{ .Values.global.namespace | quote }}
+spec:
+  ports:
+    - name: api
+      protocol: TCP
+      port: {{ .Values.financeMarketplaceBackend.apiPort }}
+      targetPort: {{ .Values.financeMarketplaceBackend.apiPort }}
+
+  selector:
+    app: {{ .Values.financeMarketplaceBackend.name | quote }}
+
+{{- end }}

@@ -5,19 +5,62 @@ global:
   clusterDomain: cluster.local
   updateStrategy: "RollingUpdate"
   editor: "Smartfy"
-  namespace: "fbank-dev"
-  domainName: "dev.example.com"
+  namespace: "marketplace"
+  domainName: "marketplace.finansystech.com.br"
   imagePullSecrets:
   - name: regsecret
 
 ########################
-openfinanceCallbackFinansysbank:
+financeMarketplaceBackend:
   enabled: true
-  name: openfinance-callback-finansysbank
+  name: finance-marketplace-backend
   image:
     repository: repo.aws.finansystech.com.br
-    name: finansystech/openfinance-callback-finansysbank
-    tag: qa-0.0.1
+    name: finansystech/finance-marketplace-backend
+    tag: 0.1.0
+    pullPolicy: Always
+  env:
+    - name: DATABASE_URI
+      value: "mongodb://root:mongodb@shared-mongodb-0.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-1.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-2.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017"
+    - name: PROXY_TARGET_PATH
+      value: "https://payments.pabbly.com"
+    - name: RUNTIME_BASE_PATH
+      value: "https://api.devtools.full-dev.finansystech.com.br"
+    - name: AUTH_SERVER_BASE_URL
+      value: "https://keycloak.full-dev.finansystech.com.br/auth"
+    - name: AUTH_SERVER_CLIENT_ID
+      value: "admin-cli"
+    - name: AUTH_SERVER_USERNAME
+      value: "admin"
+    - name: AUTH_SERVER_PASSWORD
+      value: "f1n2021@"
+    - name: AUTH_SERVER_REALM
+      value: "Finansysbank"
+  replicaCount: 1
+  apiPort: 3000
+
+  resources:
+    requests:
+      cpu: 10m
+      memory: 256Mi
+    limits:
+      cpu: 600m
+      memory: 600Mi
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+  ingress:
+    enabled: false
+
+########################
+financeMarketplaceFrontEnd:
+  enabled: true
+  name: finance-marketplace-frontend
+  image:
+    repository: repo.aws.finansystech.com.br
+    name: finansystech/finance-marketplace-frontend
+    tag: 0.1.0
     pullPolicy: Always
   env: {}
   replicaCount: 1
@@ -43,9 +86,10 @@ openfinanceCallbackFinansysbank:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/affinity: "cookie"
     hosts:
-      - host: callback.dev.fbank.full.finansystech.com.br
-        paths: []
+      - host: admin.marketplace.finansystech.com.br
+        paths:
+          - /
     tls:
-     - secretName: callback.dev.fbank.full.finansystech.com.br
+     - secretName: admin.marketplace.finansystech.com.br
        hosts:
-         - callback.dev.fbank.full.finansystech.com.br
+         - admin.marketplace.finansystech.com.br

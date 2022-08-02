@@ -1,27 +1,27 @@
-{{- if .Values.openfinanceCallbackFinansysbank.enabled }}
+{{- if .Values.financeMarketplaceFrontEnd.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.openfinanceCallbackFinansysbank.name }}
+  name: {{ .Values.financeMarketplaceFrontEnd.name }}
   namespace: {{ .Values.global.namespace }}
   labels:
 spec:
-  replicas: {{ .Values.openfinanceCallbackFinansysbank.replicaCount }}
+  replicas: {{ .Values.financeMarketplaceFrontEnd.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.openfinanceCallbackFinansysbank.name | quote }}
+      app: {{ .Values.financeMarketplaceFrontEnd.name | quote }}
   strategy:
     type: {{ .Values.global.updateStrategy }}
   template:
     metadata:
       labels:
-        app: {{ .Values.openfinanceCallbackFinansysbank.name | quote }}
+        app: {{ .Values.financeMarketplaceFrontEnd.name | quote }}
     spec:
       containers:
-      - name: {{ .Values.openfinanceCallbackFinansysbank.name | quote }}
-        image: {{ .Values.openfinanceCallbackFinansysbank.image.repository }}/{{ .Values.openfinanceCallbackFinansysbank.image.name }}:{{ .Values.openfinanceCallbackFinansysbank.image.tag }}
-        imagePullPolicy: {{ .Values.openfinanceCallbackFinansysbank.image.pullPolicy }}
-        {{- with .Values.openfinanceCallbackFinansysbank.env }}
+      - name: {{ .Values.financeMarketplaceFrontEnd.name | quote }}
+        image: {{ .Values.financeMarketplaceFrontEnd.image.repository }}/{{ .Values.financeMarketplaceFrontEnd.image.name }}:{{ .Values.financeMarketplaceFrontEnd.image.tag }}
+        imagePullPolicy: {{ .Values.financeMarketplaceFrontEnd.image.pullPolicy }}
+        {{- with .Values.financeMarketplaceFrontEnd.env }}
         env:
           {{- toYaml . | nindent 10 }}
           {{- end }}
@@ -33,20 +33,20 @@ spec:
           - node .
 
         ports:
-        - containerPort: {{ .Values.openfinanceCallbackFinansysbank.apiPort }}
+        - containerPort: {{ .Values.financeMarketplaceFrontEnd.apiPort }}
           protocol: TCP
 
-        {{- with .Values.openfinanceCallbackFinansysbank.resources }}
+        {{- with .Values.financeMarketplaceFrontEnd.resources }}
         resources:
           {{- toYaml . | nindent 12 }}
         {{- end }}
 
-        {{- with .Values.openfinanceCallbackFinansysbank.readinessProbe }}
+        {{- with .Values.financeMarketplaceFrontEnd.readinessProbe }}
         readinessProbe:
           {{- toYaml . | nindent 12 }}
         {{- end }}
 
-        {{- with .Values.openfinanceCallbackFinansysbank.livenessProbe }}
+        {{- with .Values.financeMarketplaceFrontEnd.livenessProbe }}
         livenessProbe:
           {{- toYaml . | nindent 12 }}
         {{- end }}
@@ -55,17 +55,17 @@ spec:
         terminationMessagePolicy: File
 
 
-      {{- with .Values.openfinanceCallbackFinansysbank.nodeSelector }}
+      {{- with .Values.financeMarketplaceFrontEnd.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
         {{- end }}
 
-      {{- with .Values.openfinanceCallbackFinansysbank.affinity }}
+      {{- with .Values.financeMarketplaceFrontEnd.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
         {{- end }}
 
-      {{- with .Values.openfinanceCallbackFinansysbank.tolerations }}
+      {{- with .Values.financeMarketplaceFrontEnd.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
         {{- end }}
