@@ -1,0 +1,19 @@
+{{- if .Values.shotfyHabemus.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.shotfyHabemus.name }}
+  name: {{ .Values.shotfyHabemus.name | quote }}
+  namespace: {{ .Values.global.namespace | quote }}
+spec:
+  ports:
+    - name: api
+      protocol: TCP
+      port: {{ .Values.shotfyHabemus.apiPort }}
+      targetPort: {{ .Values.shotfyHabemus.apiPort }}
+
+  selector:
+    app: {{ .Values.shotfyHabemus.name | quote }}
+
+{{- end }}

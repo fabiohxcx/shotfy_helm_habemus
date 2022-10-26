@@ -1,0 +1,103 @@
+{{- if .Values.shotfyHabemus.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.shotfyHabemus.name }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+spec:
+  replicas: {{ .Values.shotfyHabemus.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.shotfyHabemus.name | quote }}
+  strategy:
+    type: {{ .Values.global.updateStrategy }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.shotfyHabemus.name | quote }}
+    spec:
+      containers:
+      - name: {{ .Values.shotfyHabemus.name | quote }}
+        image: {{ .Values.shotfyHabemus.image.repository }}/{{ .Values.shotfyHabemus.image.name }}:{{ .Values.shotfyHabemus.image.tag }}
+        imagePullPolicy: {{ .Values.shotfyHabemus.image.pullPolicy }}
+        {{- with .Values.shotfyHabemus.env }}
+        env:
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+
+        command:
+          - habemus
+        args:
+          - '/habemus_container/config_habemus_container/habemus_config.json'
+
+        ports:
+        - containerPort: {{ .Values.shotfyHabemus.apiPort }}
+          protocol: TCP
+
+        {{- with .Values.shotfyHabemus.resources }}
+        resources:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+
+        {{- with .Values.shotfyHabemus.readinessProbe }}
+        readinessProbe:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+
+        {{- with .Values.shotfyHabemus.livenessProbe }}
+        livenessProbe:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+
+        volumeMounts:
+          - name: config
+            readOnly: true
+            mountPath: /home/ubuntu/habemus_container/config_habemus_container/app_collection.json
+            subPath: app_collection.json
+
+
+      {{- with .Values.shotfyHabemus.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+
+      {{- with .Values.shotfyHabemus.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+
+      {{- with .Values.shotfyHabemus.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+
+      dnsConfig:
+        options:
+          - name: ndots
+            value: '1'
+      dnsPolicy: ClusterFirst
+
+      restartPolicy: Always
+
+      schedulerName: default-scheduler
+
+      volumes:
+      - name: config
+        configMap:
+          name: {{ .Values.shotfyHabemus.name }}
+          items:
+            - key: app_collection.json
+              path: app_collection.json
+          defaultMode: 420
+
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+status: {}
+{{- end }}

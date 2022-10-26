@@ -1,0 +1,13 @@
+{{- if .Values.shotfyHabemus.enabled }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.shotfyHabemus.name }}
+  namespace: {{ .Values.global.namespace }}
+data:
+  app_collection.json: |
+    {{- with .Values.shotfyHabemus.app_collection }}
+    app_collection: 
+        {{- toJson . | nindent 6 }}
+        {{- end }}
+    {{- end}}

@@ -1,6 +1,6 @@
-{{- if .Values.financeMarketplaceFrontEnd.ingress.enabled -}}
-{{- $fullName := .Values.financeMarketplaceFrontEnd.name -}}
-{{- $svcPort := .Values.financeMarketplaceFrontEnd.apiPort -}}
+{{- if .Values.shotfyHabemus.ingress.enabled -}}
+{{- $fullName := .Values.shotfyHabemus.name -}}
+{{- $svcPort := .Values.shotfyHabemus.apiPort -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else -}}
@@ -9,15 +9,15 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 
 metadata:
-  name: {{ .Values.financeMarketplaceFrontEnd.name }}
-  {{- with .Values.financeMarketplaceFrontEnd.ingress.annotations }}
+  name: {{ .Values.shotfyHabemus.name }}
+  {{- with .Values.shotfyHabemus.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.financeMarketplaceFrontEnd.ingress.tls }}
+{{- if .Values.shotfyHabemus.ingress.tls }}
   tls:
-  {{- range .Values.financeMarketplaceFrontEnd.ingress.tls }}
+  {{- range .Values.shotfyHabemus.ingress.tls }}
     - hosts:
       {{- range .hosts }}
         - {{ . | quote }}
@@ -26,7 +26,7 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.financeMarketplaceFrontEnd.ingress.hosts }}
+  {{- range .Values.shotfyHabemus.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:

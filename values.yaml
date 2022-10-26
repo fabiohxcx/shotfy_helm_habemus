@@ -10,63 +10,33 @@ global:
   imagePullSecrets:
   - name: regsecret
 
-########################
-financeMarketplaceBackend:
-  enabled: true
-  name: finance-marketplace-backend
-  image:
-    repository: repo.aws.finansystech.com.br
-    name: finansystech/finance-marketplace-backend
-    tag: 0.1.0
-    pullPolicy: Always
-  env:
-    - name: DATABASE_URI
-      value: "mongodb://root:mongodb@shared-mongodb-0.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-1.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017,shared-mongodb-2.shared-mongodb-headless.shared-mongodb.svc.cluster.local:27017/marketplace?authSource=admin&readPreference=nearest&w=majority&replicaSet=rs0"
-    - name: PROXY_TARGET_PATH
-      value: "https://payments.pabbly.com"
-    - name: RUNTIME_BASE_PATH
-      value: "https://api.devtools.full-dev.finansystech.com.br"
-    - name: AUTH_SERVER_BASE_URL
-      value: "https://keycloak.full-dev.finansystech.com.br/auth"
-    - name: AUTH_SERVER_CLIENT_ID
-      value: "admin-cli"
-    - name: AUTH_SERVER_USERNAME
-      value: "admin"
-    - name: AUTH_SERVER_PASSWORD
-      value: "f1n2021@"
-    - name: AUTH_SERVER_REALM
-      value: "Finansysbank"
-  replicaCount: 1
-  apiPort: 3000
-
-  resources:
-    requests:
-      cpu: 10m
-      memory: 256Mi
-    limits:
-      cpu: 600m
-      memory: 600Mi
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
-
-  ingress:
-    enabled: false
 
 ########################
-financeMarketplaceFrontEnd:
+shotfyHabemus:
   enabled: true
-  name: finance-marketplace-frontend
+  name: shotfy-habemus
   image:
-    repository: repo.aws.finansystech.com.br
-    name: finansystech/finance-marketplace-frontend
-    tag: 0.1.0
+    repository: 424559638657.dkr.ecr.us-east-2.amazonaws.com
+    name: shotfy_helm_api_rails
+    tag: 0.0.1
     pullPolicy: Always
   env:
     - name: PROXY_URL
       value: "http://finance-marketplace-backend.marketplace.svc.cluster.local:3000"
   replicaCount: 1
-  apiPort: 8080
+  apiPort: 31364
+
+  app_collection:
+    app_collection:
+      apps: [
+        "/habemus_container/config_habemus_container/instagram_stories/instagram_stories.json",
+        "/habemus_container/config_habemus_container/highlights/instagram_highlights.json",
+        "/habemus_container/config_habemus_container/whatsapp/whatsapp_app.json",
+        "/habemus_container/config_habemus_container/pinterest/pinterest.json",
+        "/habemus_container/config_habemus_container/instagram/instagram_app.json",
+        "/habemus_container/config_habemus_container/tiktok/tiktok.json",
+        "/habemus_container/config_habemus_container/twitter/twitter.json"
+      ]
 
   resources:
     requests:
@@ -88,10 +58,10 @@ financeMarketplaceFrontEnd:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/affinity: "cookie"
     hosts:
-      - host: admin.marketplace.finansystech.com.br
+      - host: habemus-k8s.shotfy.com
         paths:
           - /
     tls:
-     - secretName: admin.marketplace.finansystech.com.br
+     - secretName: habemus-k8s.shotfy.com
        hosts:
-         - admin.marketplace.finansystech.com.br
+         - habemus-k8s.shotfy.com

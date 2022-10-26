@@ -1,11 +1,11 @@
 apiVersion: v1
 appVersion: 0.0.1
-description: Finance Marketplace
+description: Shotfy Habemus
 keywords:
-- Finance
-- Marketplace
+- Shotfy
+- Habemus
 maintainers:
-- email: infra@finansystech.com
-  name: finansystech
-name: finance-marketplace
+- email: infra@shotfy.com
+  name: shotfy
+name: shotfy-habemus
 version: 0.0.1
