@@ -2,11 +2,8 @@
 # Declare variables to be passed into your templates.
 
 global:
-  clusterDomain: cluster.local
   updateStrategy: "RollingUpdate"
-  editor: "Smartfy"
-  namespace: "marketplace"
-  domainName: "marketplace.finansystech.com.br"
+  namespace: "shotfy-habemus"
   imagePullSecrets:
   - name: regsecret
 

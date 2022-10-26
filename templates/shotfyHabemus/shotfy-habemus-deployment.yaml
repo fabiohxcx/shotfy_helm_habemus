@@ -59,6 +59,12 @@ spec:
             mountPath: /home/ubuntu/habemus_container/config_habemus_container/app_collection.json
             subPath: app_collection.json
 
+        volumeMounts:
+          - name: config2
+            readOnly: true
+            mountPath: /habemus_container/config_habemus_container/habemus_config.json
+            subPath: habemus_config.json
+
 
       {{- with .Values.shotfyHabemus.nodeSelector }}
       nodeSelector:
@@ -92,6 +98,14 @@ spec:
           items:
             - key: app_collection.json
               path: app_collection.json
+          defaultMode: 420
+
+      - name: config2
+        configMap:
+          name: {{ .Values.shotfyHabemus.name }}
+          items:
+            - key: habemus_config.json
+              path: habemus_config.json
           defaultMode: 420
 
       {{- with .Values.global.imagePullSecrets }}
