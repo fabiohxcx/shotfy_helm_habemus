@@ -7,13 +7,8 @@ metadata:
 data:
   app_collection.json: |
     {{- with .Values.shotfyHabemus.app_collection }}
-    app_collection: 
         {{- toJson . | nindent 6 }}
         {{- end }}
     {{- end}}
   habemus_config.json: |
-      {
-      
-        "app_collection_path": "/habemus_container/config_habemus_container/app_collection.json"
-      
-      }
+      {"app_collection_path": "/habemus_container/config_habemus_container/app_collection.json"}

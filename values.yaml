@@ -7,15 +7,14 @@ global:
   imagePullSecrets:
   - name: regsecret
 
-
 ########################
 shotfyHabemus:
   enabled: true
   name: shotfy-habemus
   image:
     repository: 424559638657.dkr.ecr.us-east-2.amazonaws.com
-    name: shotfy_helm_api_rails
-    tag: 0.0.1
+    name: shotfy_habemus
+    tag: 0.0.1-static
     pullPolicy: Always
   env:
     - name: PROXY_URL

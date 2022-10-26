@@ -54,12 +54,10 @@ spec:
         terminationMessagePolicy: File
 
         volumeMounts:
-          - name: config
+          - name: config3
             readOnly: true
-            mountPath: /home/ubuntu/habemus_container/config_habemus_container/app_collection.json
+            mountPath: /habemus_container/config_habemus_container/app_collection.json
             subPath: app_collection.json
-
-        volumeMounts:
           - name: config2
             readOnly: true
             mountPath: /habemus_container/config_habemus_container/habemus_config.json
@@ -92,7 +90,7 @@ spec:
       schedulerName: default-scheduler
 
       volumes:
-      - name: config
+      - name: config3
         configMap:
           name: {{ .Values.shotfyHabemus.name }}
           items:
