@@ -3,9 +3,9 @@ entries:
   shotfy-habemus:
   - apiVersion: v1
     appVersion: 0.0.1
-    created: "2022-11-01T21:56:35.771691328-03:00"
+    created: "2022-11-01T22:03:52.410700619-03:00"
     description: Shotfy Habemus
-    digest: b94f1151d8a9106684831f8a7ff13a70164383745211a1bc72485660df9763d7
+    digest: 58b286125787634c5a342f86a1e46ff8ab9a53e2d55600852d619319af8375de
     keywords:
     - Shotfy
     - Habemus
@@ -14,6 +14,6 @@ entries:
       name: shotfy
     name: shotfy-habemus
     urls:
-    - https://github.com/fabiohxcx/shotfy_helm_habemus/shotfy-habemus-0.0.1.tgz
+    - https://fabiohxcx.github.io/shotfy_helm_habemus/shotfy-habemus-0.0.1.tgz
     version: 0.0.1
-generated: "2022-11-01T21:56:35.770699464-03:00"
+generated: "2022-11-01T22:03:52.409906401-03:00"
